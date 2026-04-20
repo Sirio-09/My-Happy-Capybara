@@ -3,9 +3,10 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
+const validator = require("email-validator");
 const Utente = require("../models/Utente");
 
-// Configurazione Nodemailer (usa Gmail o altro servizio)
+// Configurazione Nodemailer
 const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -14,7 +15,6 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-// Funzione per generare codice casuale
 function generaCodice() {
     return Math.floor(100000 + Math.random() * 900000).toString();
 }
@@ -26,6 +26,11 @@ router.post("/register", async (req, res) => {
 
         if(!nome || !email || !password) {
             return res.status(400).json({ messaggio: "Compila tutti i campi" });
+        }
+
+        // Controlla se l'email è valida
+        if(!validator.validate(email)) {
+            return res.status(400).json({ messaggio: "Email non valida" });
         }
 
         const esisteGia = await Utente.findOne({ email });
@@ -61,11 +66,12 @@ router.post("/register", async (req, res) => {
         });
 
     } catch(err) {
+        console.error("ERRORE REGISTRAZIONE:", err);
         res.status(500).json({ messaggio: "Errore del server", errore: err.message });
     }
 });
 
-// POST /auth/verify - verifica il codice
+// POST /auth/verify
 router.post("/verify", async (req, res) => {
     try {
         const { email, codice } = req.body;
