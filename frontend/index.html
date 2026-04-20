@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Happy Capybara</title>
+ 
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-logo">My Happy Capybara</div>
+        <div class="user-info">
+            <span id="nome-utente"></span>
+            <button onclick="logout()" id="button-logout">Logout</button>
+        </div>
+    </header>
+
+    <h2>Complete your Tasks and cheer up your Capybara</h2>
+ 
+    <div>
+        <label for="input-checkbox" id="input-label">Insert your Tasks: </label>
+        <input type="text" name="" id="input-checkbox">
+        <button onclick="insertCheckBox()" id="button-insert">Insert</button>
+    </div>
+ 
+    <div id="container-checkbox">
+        <p>To Do List</p>
+        <hr>
+        <div id="div-checkbox"></div>
+    </div>
+
+    <button onclick="removeCheckbox()" id="button-remove">Remove Selected Checkbox</button>
+</body>
+</html>
