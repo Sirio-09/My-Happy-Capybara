@@ -4,10 +4,13 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Utente = require("../models/Utente");
 
-// POST /auth/register
 router.post("/register", async (req, res) => {
     try {
         const { nome, email, password } = req.body;
+
+        if(!nome || !email || !password) {
+            return res.status(400).json({ messaggio: "Compila tutti i campi" });
+        }
 
         const esisteGia = await Utente.findOne({ email });
         if(esisteGia) return res.status(400).json({ messaggio: "Email già registrata" });
@@ -23,7 +26,6 @@ router.post("/register", async (req, res) => {
     }
 });
 
-// POST /auth/login
 router.post("/login", async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -38,8 +40,7 @@ router.post("/login", async (req, res) => {
             return res.status(400).json({ messaggio: "Email o password errati" });
         }
 
-        // Usiamo una stringa fissa come segreto per evitare errori di configurazione
-        const secret = "MiaChiaveSegretaSuperDifficile123";
+        const secret = process.env.JWT_SECRET || "MiaChiaveSegretaSuperDifficile123";
 
         const token = jwt.sign(
             { id: utente._id, nome: utente.nome },
@@ -47,7 +48,6 @@ router.post("/login", async (req, res) => {
             { expiresIn: "1d" }
         );
 
-        // Risposta con il nome incluso
         return res.json({ 
             messaggio: "Login effettuato!", 
             token: token, 

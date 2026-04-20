@@ -89,8 +89,13 @@
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
 
+            if(!email || !password) {
+                document.getElementById("messaggio").textContent = "Compila tutti i campi!";
+                return;
+            }
+
             try {
-                const res = await fetch("http://localhost:3000/auth/login", {
+                const res = await fetch("https://my-happy-capybara.onrender.com/auth/login", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ email, password })
@@ -99,23 +104,26 @@
                 const data = await res.json();
 
                 if(data.token){
-                    // Salva il token
                     localStorage.setItem("token", data.token);
-                    
-                    // Salva il nome (Assicurati che il tuo backend invii 'data.nome')
-                    if(data.nome) {
-                        localStorage.setItem("nome", data.nome);
-                    }
-
+                    localStorage.setItem("nome", data.nome);
                     document.getElementById("messaggio").textContent = "Login effettuato!";
-                    window.location.href = "index.html";
+                    setTimeout(() => {
+                        window.location.href = "index.html";
+                    }, 500);
                 } else {
                     document.getElementById("messaggio").textContent = data.messaggio;
                 }
             } catch (error) {
+                console.error("Errore:", error);
                 document.getElementById("messaggio").textContent = "Errore di connessione al server.";
             }
         }
+
+        document.getElementById("password").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                login();
+            }
+        });
     </script>
 </body>
 </html>
