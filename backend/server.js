@@ -13,7 +13,7 @@ const utentiRoutes = require("./routes/utenti");
 const tasksRoutes = require("./routes/tasks");
  
 const app = express();
- 
+
 app.use(express.json());
 app.use(cors());
  
@@ -42,7 +42,7 @@ app.get("/", (req, res) => {
 const PORT = process.env.PORT || 3000;
  
 app.listen(PORT, () => {
-    console.log(`🚀 Server avviato correttamente su http://localhost:${PORT}`);
+    console.log(`🚀 Server avviato correttamente su https://my-happy-capybara.onrender.com:${PORT}`);
     
     if (!process.env.PORT) {
         console.log("⚠️ Nota: Sto usando la porta 3000 perché non ho trovato PORT nel file .env");
