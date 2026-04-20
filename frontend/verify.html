@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Verifica Email</title>
+    <style>
+        body {
+            background-color: #FFF5F7;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            text-align: center;
+            color: #880E4F;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            border: 1px solid rgba(174, 22, 83, 0.2);
+            width: 400px;
+            max-width: 90%;
+            padding: 40px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(136, 14, 79, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background-color: #fff;
+        }
+        h1 { margin-top: 0; font-size: 24px; }
+        input {
+            font-family: inherit;
+            font-size: 16px;
+            padding: 12px 15px;
+            color: #880E4F;
+            border: 1px solid rgba(174, 22, 83, 0.4);
+            border-radius: 12px;
+            width: 85%;
+            margin: 0 auto;
+            box-sizing: border-box;
+            background-color: #FFF5F7;
+        }
+        button {
+            background-color: #EC407A;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            width: 85%;
+            margin: 10px auto;
+            cursor: pointer;
+        }
+        button:hover { background-color: #ae1653; }
+        #messaggio { font-size: 16px; font-weight: bold; margin-top: 10px; min-height: 20px;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Verifica la tua Email</h1>
+        <p>Abbiamo mandato un codice alla tua email. Inseriscilo qui:</p>
+        <input type="email" id="email" placeholder="La tua email" readonly>
+        <input type="text" id="codice" placeholder="Codice di verifica (6 cifre)">
+        
+        <button onclick="verifica()">Verifica</button>
+
+        <p id="messaggio"></p>
+    </div>
+
+    <script>
+        const email = new URLSearchParams(window.location.search).get("email");
+        document.getElementById("email").value = email;
+
+        async function verifica(){
+            const codice = document.getElementById("codice").value;
+
+            if(!codice || codice.length !== 6) {
+                document.getElementById("messaggio").textContent = "Inserisci un codice valido (6 cifre)";
+                return;
+            }
+
+            try {
+                const res = await fetch("https://my-happy-capybara.onrender.com/auth/verify", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, codice })
+                });
+
+                const data = await res.json();
+
+                if(res.ok) {
+                    document.getElementById("messaggio").textContent = "✅ Email verificata! Reindirizzamento...";
+                    setTimeout(() => {
+                        window.location.href = "login.html";
+                    }, 1500);
+                } else {
+                    document.getElementById("messaggio").textContent = data.messaggio;
+                }
+            } catch (error) {
+                document.getElementById("messaggio").textContent = "Errore di connessione.";
+            }
+        }
+    </script>
+</body>
+</html>
