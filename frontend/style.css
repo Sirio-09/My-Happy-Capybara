@@ -352,7 +352,7 @@ h2 {
         width: 100%;
         padding: 15px;
         gap: 8px;
-        min-height: 180px;
+        min-height: 400px;
     }
 
     #container-checkbox p {
