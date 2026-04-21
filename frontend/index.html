@@ -4,35 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Happy Capybara</title>
- 
+
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="header">
-        <div id="nome-utente">Utente</div>
-        <button class="logout-btn" onclick="logout()">Esci</button>
+    <h1>My Happy Capybara</h1>
+    <h2>Complete your Tasks and cheer up your Capybara</h2>
+
+    <div>
+        <label for="" id="input-label">Insert your Tasks: </label>
+        <input type="text" name="" id="input-checkbox">
+        <button onclick="insertCheckBox()" id="button-insert">INSERT</button>
     </div>
- 
-    <main>
-        <section class="input-section">
-            <h1>My Happy Capybara</h1>
-            <h2>Completa le tue task</h2>
- 
-            <label for="input-checkbox" id="input-label">Aggiungi una task:</label>
-            <input type="text" id="input-checkbox" placeholder="Scrivi una task...">
-            <button onclick="insertCheckBox()" id="button-insert">Aggiungi</button>
-        </section>
- 
-        <div id="container-checkbox">
-            <p>Le tue Task</p>
-            <hr>
-            <div id="div-checkbox"></div>
+
+    <div id="container-checkbox">
+        <p>To Do List</p>
+        <hr>
+
+        <div id="div-checkbox">
+
         </div>
- 
-        <section class="delete-section">
-            <button onclick="removeCheckbox()" class="delete-btn">Elimina Task Completate</button>
-            <p class="delete-hint">Spunta le task che vuoi eliminare e clicca qui</p>
-        </section>
-    </main>
+    </div>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <button onclick="removeCheckbox()" style="background-color: #EC407A; color: white; border: none; padding: 12px 30px; border-radius: 10px; cursor: pointer; font-weight: 600;">Delete Completed</button>
+    </div>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <button onclick="logout()" style="background-color: #EC407A; color: white; border: none; padding: 12px 30px; border-radius: 10px; cursor: pointer; font-weight: 600;">Logout</button>
+    </div>
 </body>
+</html>

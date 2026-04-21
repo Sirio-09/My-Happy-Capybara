@@ -1,205 +1,129 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
- 
-body {
-    background: linear-gradient(135deg, #FFF5F7 0%, #FFE4EC 100%);
-    font-family: 'Georgia', 'Times New Roman', serif;
+body{
+    background-color: #FFF5F7;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: center;
     color: #880E4F;
-    min-height: 100vh;
     padding: 20px;
 }
- 
-h1, h2 {
-    text-align: center;
-    letter-spacing: 0.5px;
+
+#button-insert{
+    background-color: #EC407A;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 10px;
+    color: white;
+    margin: 10px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
- 
-h1 {
-    font-size: 32px;
-    margin-bottom: 10px;
+
+#button-insert:hover{
+    background-color: #ae1653;
+    color: white;
+    transform: translateY(-2px);
 }
- 
-h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #ae1653;
-}
- 
-main {
-    max-width: 700px;
-    margin: 30px auto 0;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
- 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: white;
-    padding: 15px 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(136, 14, 79, 0.1);
-    margin-bottom: 20px;
-}
- 
-#nome-utente {
-    font-size: 14px;
-    font-weight: 600;
-    color: #880E4F;
-}
- 
-.logout-btn {
+
+.delete-btn {
     background-color: #EC407A;
     color: white;
     border: none;
-    padding: 8px 16px;
-    border-radius: 8px;
+    padding: 12px 30px;
+    border-radius: 10px;
     cursor: pointer;
-    font-size: 13px;
     font-weight: 600;
     transition: all 0.2s ease;
+    width: 100%;
 }
- 
-.logout-btn:hover {
+
+.delete-btn:hover {
     background-color: #ae1653;
+    transform: translateY(-2px);
 }
- 
-.input-section {
-    background: white;
-    border-radius: 16px;
-    padding: 25px 20px;
-    box-shadow: 0 10px 30px rgba(136, 14, 79, 0.1);
-}
- 
-#input-label {
+
+#input-label{
     display: block;
-    margin-bottom: 12px;
-    font-size: 16px;
-    font-weight: 600;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+#input-checkbox{
+    font-size: 20px;
+    width: 200px;
     color: #880E4F;
+    border: 2px solid #ae1653;
+    border-radius: 3px;
+    padding: 10px;
 }
- 
-#input-checkbox {
-    width: 100%;
-    padding: 14px 16px;
-    font-size: 16px;
-    color: #880E4F;
-    border: 2px solid #FFB6D9;
-    border-radius: 12px;
-    background-color: #FFF5F7;
-    font-family: 'Georgia', serif;
-    transition: all 0.3s ease;
-    margin-bottom: 12px;
+
+#input-checkbox:focus{
+    outline: none;       
+    border: 2px solid #ae1653;
+    border-radius: 3px;
+    box-shadow: 0 0 0 4px rgba(236, 64, 122, 0.15);
 }
- 
-#input-checkbox:focus {
-    outline: none;
-    border-color: #EC407A;
-    background-color: white;
-    box-shadow: 0 0 0 4px rgba(236, 64, 122, 0.1);
-}
- 
-#button-insert {
-    background: linear-gradient(135deg, #EC407A 0%, #ae1653 100%);
-    border: none;
-    padding: 14px 30px;
-    border-radius: 12px;
-    color: white;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 8px 20px rgba(236, 64, 122, 0.3);
-    width: 100%;
-}
- 
-#button-insert:hover {
-    background: linear-gradient(135deg, #ae1653 0%, #8B0A3A 100%);
-    transform: translateY(-3px);
-    box-shadow: 0 12px 30px rgba(236, 64, 122, 0.4);
-}
- 
-#button-insert:active {
-    transform: translateY(-1px);
-}
- 
-#container-checkbox {
-    background: white;
-    border-radius: 16px;
-    border: 2px solid #FFB6D9;
-    padding: 25px 20px;
-    box-shadow: 0 10px 30px rgba(136, 14, 79, 0.1);
+
+#container-checkbox{
+    border: solid 2px #ae1653;
+    width: 500px;
+    max-width: 90%;
+    min-height: 200px;
+    height: auto;
+  
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(136, 14, 79, 0.2);
+  
     display: flex;
     flex-direction: column;
     gap: 15px;
-    min-height: 200px;
-    max-height: 500px;
-    overflow-y: auto;
+    margin: auto;
 }
- 
-#container-checkbox p {
-    font-size: 18px;
-    font-weight: 700;
-    color: #880E4F;
-    margin: 0;
-}
- 
-#container-checkbox hr {
-    border: none;
-    border-top: 2px solid #FFB6D9;
+
+#container-checkbox hr{
+    border: solid 1px #ae1653;
     width: 100%;
     margin: 0;
 }
- 
-#div-checkbox {
+
+#container-checkbox p{
+    font-size: 20px;
+    margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
 }
- 
+
 .new-label {
     display: flex;
     align-items: center;
     width: 100%;
-    font-size: 16px;
-    padding: 12px;
+    font-size: 25px;
+    padding: 10px 0;
     box-sizing: border-box;
-    line-height: 1.4;
-    gap: 12px;
-    border-radius: 8px;
-    transition: all 0.2s ease;
-    background-color: #FFF5F7;
+    line-height: 1;
 }
- 
-.new-label:hover {
-    background-color: #FFE4EC;
-}
- 
+
 .new-checkbox {
-    appearance: none;
-    -webkit-appearance: none;
+    margin: 0 10px 0 0;
     width: 22px;
     height: 22px;
-    min-width: 22px;
-    min-height: 22px;
     cursor: pointer;
     flex-shrink: 0;
+    vertical-align: middle;
+    appearance: none;
+    -webkit-appearance: none;
     border: 2px solid #ae1653;
     border-radius: 4px;
     background-color: white;
     transition: all 0.2s ease;
 }
- 
+
 .new-checkbox:hover {
     border-color: #EC407A;
     box-shadow: 0 0 0 3px rgba(236, 64, 122, 0.1);
 }
- 
+
 .new-checkbox:checked {
     background-color: #EC407A;
     border-color: #EC407A;
@@ -207,200 +131,102 @@ main {
     background-repeat: no-repeat;
     background-position: center;
 }
- 
-.delete-section {
-    text-align: center;
-    padding: 20px;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(136, 14, 79, 0.1);
-    margin-bottom: 30px;
-}
- 
-.delete-btn {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: all 0.2s ease;
-    width: 100%;
-}
- 
-.delete-btn:hover {
-    background-color: #d32f2f;
-}
- 
-.delete-hint {
-    font-size: 12px;
-    color: #999;
-    margin-top: 10px;
-}
- 
-#container-checkbox::-webkit-scrollbar {
-    width: 6px;
-}
- 
-#container-checkbox::-webkit-scrollbar-track {
-    background: #FFF5F7;
-    border-radius: 10px;
-}
- 
-#container-checkbox::-webkit-scrollbar-thumb {
-    background: #EC407A;
-    border-radius: 10px;
-}
- 
-#container-checkbox::-webkit-scrollbar-thumb:hover {
-    background: #ae1653;
-}
- 
+
+/* RESPONSIVE */
 @media (max-width: 768px) {
     body {
         padding: 15px;
     }
- 
+
     h1 {
-        font-size: 26px;
+        font-size: 28px;
+        margin-bottom: 10px;
     }
- 
+
     h2 {
-        font-size: 20px;
+        font-size: 18px;
+        margin-bottom: 20px;
     }
- 
-    main {
-        margin-top: 20px;
-        gap: 15px;
-    }
- 
-    .input-section,
-    #container-checkbox {
-        padding: 20px 16px;
-        border-radius: 14px;
-    }
- 
+
     #input-label {
-        font-size: 15px;
+        font-size: 18px;
     }
- 
+
     #input-checkbox {
-        padding: 12px 14px;
-        font-size: 15px;
+        font-size: 16px;
+        width: 100%;
+        max-width: 300px;
+        padding: 10px;
     }
- 
+
     #button-insert {
         padding: 12px 24px;
         font-size: 14px;
+        margin: 10px 0;
     }
- 
+
+    #container-checkbox {
+        width: 100%;
+        padding: 15px;
+        margin: 20px auto;
+    }
+
+    #container-checkbox p {
+        font-size: 18px;
+    }
+
     .new-label {
-        font-size: 15px;
-        padding: 10px;
-        gap: 10px;
-    }
- 
-    .header {
-        flex-wrap: wrap;
-        gap: 10px;
-        padding: 12px 16px;
-    }
- 
-    #nome-utente {
-        font-size: 13px;
-    }
- 
-    .logout-btn {
-        padding: 7px 14px;
-        font-size: 12px;
+        font-size: 16px;
+        padding: 10px 0;
     }
 }
- 
+
 @media (max-width: 480px) {
     body {
-        padding: 12px;
+        padding: 10px;
     }
- 
+
     h1 {
-        font-size: 22px;
-        margin-bottom: 5px;
+        font-size: 24px;
     }
- 
+
     h2 {
-        font-size: 18px;
-        margin-bottom: 15px;
+        font-size: 16px;
     }
- 
-    main {
-        margin-top: 15px;
-        gap: 12px;
-    }
- 
-    .input-section,
-    #container-checkbox {
-        padding: 16px 12px;
-        border-radius: 12px;
-    }
- 
+
     #input-label {
-        font-size: 14px;
-        margin-bottom: 10px;
+        font-size: 16px;
     }
- 
+
     #input-checkbox {
-        padding: 11px 12px;
         font-size: 14px;
-        margin-bottom: 10px;
+        width: 100%;
+        padding: 10px;
     }
- 
+
     #button-insert {
-        padding: 11px 20px;
+        padding: 10px 20px;
         font-size: 13px;
+        margin: 8px 0;
     }
- 
+
     #container-checkbox {
-        min-height: 180px;
-        max-height: 400px;
+        width: 100%;
+        padding: 12px;
+        margin: 15px auto;
     }
- 
+
     #container-checkbox p {
         font-size: 16px;
     }
- 
+
     .new-label {
         font-size: 14px;
-        padding: 10px 8px;
-        gap: 10px;
+        padding: 8px 0;
     }
- 
+
     .new-checkbox {
-        width: 20px;
-        height: 20px;
-        min-width: 20px;
-        min-height: 20px;
-    }
- 
-    .header {
-        padding: 10px 12px;
-        gap: 8px;
-    }
- 
-    #nome-utente {
-        font-size: 12px;
-    }
- 
-    .logout-btn {
-        padding: 6px 12px;
-        font-size: 11px;
-    }
- 
-    .delete-section {
-        padding: 16px 12px;
-    }
- 
-    .delete-btn {
-        padding: 11px 20px;
-        font-size: 13px;
+        width: 18px;
+        height: 18px;
     }
 }
