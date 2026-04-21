@@ -9,30 +9,32 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <h1>My Happy Capybara</h1>
-    <h2>Complete your Tasks and cheer up your Capybara</h2>
-
-    <div>
-        <label for="" id="input-label">Insert your Tasks: </label>
-        <input type="text" name="" id="input-checkbox">
-        <button onclick="insertCheckBox()" id="button-insert">INSERT</button>
-    </div>
-
-    <div id="container-checkbox">
-        <p>To Do List</p>
-        <hr>
-
-        <div id="div-checkbox">
-
+    <header id="header">
+        <div class="header-left">
+            <h1>My Happy Capybara</h1>
         </div>
-    </div>
+        <div class="header-right">
+            <span id="nome-utente">Utente</span>
+            <button onclick="logout()" class="logout-btn">Esci</button>
+        </div>
+    </header>
 
-    <div style="text-align: center; margin-top: 20px;">
-        <button onclick="removeCheckbox()" style="background-color: #EC407A; color: white; border: none; padding: 12px 30px; border-radius: 10px; cursor: pointer; font-weight: 600;">Delete Completed</button>
-    </div>
+    <main>
+        <h2>Complete your Tasks and cheer up your Capybara</h2>
 
-    <div style="text-align: center; margin-top: 20px;">
-        <button onclick="logout()" style="background-color: #EC407A; color: white; border: none; padding: 12px 30px; border-radius: 10px; cursor: pointer; font-weight: 600;">Logout</button>
-    </div>
+        <div class="input-section">
+            <label for="input-checkbox" id="input-label">Insert your Tasks: </label>
+            <input type="text" id="input-checkbox" placeholder="Scrivi una task...">
+            <button onclick="insertCheckBox()" id="button-insert">INSERT</button>
+        </div>
+
+        <div id="container-checkbox">
+            <p>To Do List</p>
+            <hr>
+            <div id="div-checkbox"></div>
+        </div>
+
+        <button onclick="removeCheckbox()" class="delete-btn">Elimina Completate</button>
+    </main>
 </body>
 </html>
