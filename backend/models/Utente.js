@@ -6,6 +6,8 @@ const utenteSchema = new mongoose.Schema({
     password: { type: String, required: true },
     verificato: { type: Boolean, default: false },
     codiceVerifica: { type: String, default: null },
+    codiceReset: { type: String, default: null },        
+    scadenzaReset: { type: Date, default: null },        
     dataCreazione: { type: Date, default: Date.now }
 });
 

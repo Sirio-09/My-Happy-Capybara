@@ -133,4 +133,75 @@ router.post("/login", async (req, res) => {
     }
 });
 
+// POST /auth/forgot-password - Manda email con link reset
+router.post("/forgot-password", async (req, res) => {
+    try {
+        const { email } = req.body;
+
+        const utente = await Utente.findOne({ email });
+        if(!utente) return res.status(400).json({ messaggio: "Email non trovata" });
+
+        // Genera codice reset casuale
+        const codiceReset = Math.floor(100000 + Math.random() * 900000).toString();
+        
+        // Salva il codice e la scadenza (30 minuti)
+        utente.codiceReset = codiceReset;
+        utente.scadenzaReset = Date.now() + 30 * 60 * 1000;
+        await utente.save();
+
+        // Manda email con codice
+        await transporter.sendMail({
+            from: process.env.EMAIL_USER,
+            to: email,
+            subject: "Ripristina la tua password - My Happy Capybara",
+            html: `
+                <h2>Ripristino Password</h2>
+                <p>Hai richiesto di ripristinare la tua password.</p>
+                <p>Il tuo codice di verifica è:</p>
+                <h1 style="color: #EC407A; font-size: 32px;">${codiceReset}</h1>
+                <p>Questo codice scade tra 30 minuti.</p>
+                <p>Se non hai richiesto il ripristino, ignora questa email.</p>
+            `
+        });
+
+        res.json({ messaggio: "Email inviata con il codice di ripristino" });
+
+    } catch(err) {
+        res.status(500).json({ messaggio: "Errore del server", errore: err.message });
+    }
+});
+
+// POST /auth/reset-password - Ripristina la password
+router.post("/reset-password", async (req, res) => {
+    try {
+        const { email, codice, nuovaPassword } = req.body;
+
+        const utente = await Utente.findOne({ email });
+        if(!utente) return res.status(400).json({ messaggio: "Email non trovata" });
+
+        // Controlla il codice
+        if(utente.codiceReset !== codice) {
+            return res.status(400).json({ messaggio: "Codice non valido" });
+        }
+
+        // Controlla se il codice è scaduto
+        if(Date.now() > utente.scadenzaReset) {
+            return res.status(400).json({ messaggio: "Codice scaduto. Richiedi un nuovo ripristino" });
+        }
+
+        // Hashea la nuova password
+        const nuovaPasswordHashata = await bcrypt.hash(nuovaPassword, 10);
+        
+        utente.password = nuovaPasswordHashata;
+        utente.codiceReset = null;
+        utente.scadenzaReset = null;
+        await utente.save();
+
+        res.json({ messaggio: "Password ripristinata con successo" });
+
+    } catch(err) {
+        res.status(500).json({ messaggio: "Errore del server", errore: err.message });
+    }
+});
+
 module.exports = router;
