@@ -1,210 +1,406 @@
-/* --- IMPOSTAZIONI GENERALI --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+ 
 body {
-    background-color: #FFF5F7;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    background: linear-gradient(135deg, #FFF5F7 0%, #FFE4EC 100%);
+    font-family: 'Georgia', 'Times New Roman', serif;
+    color: #880E4F;
+    min-height: 100vh;
+    padding: 20px;
+}
+ 
+h1, h2 {
     text-align: center;
-    color: #880E4F;
-    user-select: none;
-    margin: 0; 
-}
-
-/* --- STILE DELL'HEADER --- */
-.app-header {
-    background-color: #ae1653;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px;
-    box-shadow: 0 4px 15px rgba(136, 14, 79, 0.15); 
-    margin-bottom: 30px; 
-}
-
-.header-logo {
-    font-size: 22px;
-    font-weight: bold;
     letter-spacing: 0.5px;
 }
-
-.user-info {
-    display: flex;
-    align-items: center;
-    gap: 15px; 
-}
-
-#nome-utente {
-    font-size: 16px;
-    font-weight: bold;
-    color: #FFF5F7; 
-    letter-spacing: 0.5px;
-}
-
-#button-logout {
-    background-color: #FFF5F7;
-    color: #ae1653;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 12px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    font-family: inherit;
-    transition: all 0.3s ease; 
-}
-
-#button-logout:hover {
-    background-color: #f8bbd0; 
-    transform: translateY(-2px); 
-}
-
-/* --- TIPOGRAFIA TITOLI --- */
+ 
 h1 {
-    font-size: 2.5rem;
-    margin-top: 10px;
-    margin-bottom: 5px;
-    letter-spacing: 1px;
+    font-size: 32px;
+    margin-bottom: 10px;
 }
-
+ 
 h2 {
-    font-size: 1.2rem;
-    font-weight: 400;
-    opacity: 0.8; 
-    margin-bottom: 30px;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #ae1653;
 }
-
-/* --- ZONA INPUT E INSERIMENTO --- */
-#input-label {
-    display: block;
-    margin-bottom: 12px;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-#input-checkbox {
-    font-family: inherit;
-    font-size: 18px;
-    width: 250px;
-    padding: 12px 15px; 
-    color: #880E4F;
-    background-color: #ffffff;
-    border: 1px solid rgba(174, 22, 83, 0.4); 
-    border-radius: 12px; 
-    transition: all 0.3s ease;
-}
-
-#input-checkbox:focus {
-    outline: none;       
-    border-color: #EC407A;
-    box-shadow: 0 0 0 4px rgba(236, 64, 122, 0.15); 
-}
-
-/* --- BOTTONI GLOBALI --- */
-#button-insert, #button-remove {
-    background-color: #EC407A;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 12px;
-    color: white;
-    margin: 10px;
-    font-size: 16px;
-    font-family: inherit;
-    font-weight: bold;
-    box-shadow: 0 4px 10px rgba(236, 64, 122, 0.2);
-    transition: all 0.3s ease;
-}
-
-#button-insert:hover, #button-remove:hover {
-    cursor: pointer;
-    background-color: #ae1653;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(174, 22, 83, 0.3);
-}
-
-/* --- CONTENITORE DELLA TO-DO LIST --- */
-#container-checkbox {
-    background-color: #ffffff; 
-    border: 1px solid rgba(174, 22, 83, 0.1); 
-    width: 500px;
-    max-width: 90%;
-    min-height: 400px;
-    height: auto;
-    padding: 30px; 
-    border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(136, 14, 79, 0.08); 
+ 
+main {
+    max-width: 700px;
+    margin: 30px auto 0;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    margin: 30px auto;    
-    max-height: 400px;
-    overflow-y: auto; 
 }
-
+ 
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(136, 14, 79, 0.1);
+    margin-bottom: 20px;
+}
+ 
+#nome-utente {
+    font-size: 14px;
+    font-weight: 600;
+    color: #880E4F;
+}
+ 
+.logout-btn {
+    background-color: #EC407A;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+ 
+.logout-btn:hover {
+    background-color: #ae1653;
+}
+ 
+.input-section {
+    background: white;
+    border-radius: 16px;
+    padding: 25px 20px;
+    box-shadow: 0 10px 30px rgba(136, 14, 79, 0.1);
+}
+ 
+#input-label {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #880E4F;
+}
+ 
+#input-checkbox {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 16px;
+    color: #880E4F;
+    border: 2px solid #FFB6D9;
+    border-radius: 12px;
+    background-color: #FFF5F7;
+    font-family: 'Georgia', serif;
+    transition: all 0.3s ease;
+    margin-bottom: 12px;
+}
+ 
+#input-checkbox:focus {
+    outline: none;
+    border-color: #EC407A;
+    background-color: white;
+    box-shadow: 0 0 0 4px rgba(236, 64, 122, 0.1);
+}
+ 
+#button-insert {
+    background: linear-gradient(135deg, #EC407A 0%, #ae1653 100%);
+    border: none;
+    padding: 14px 30px;
+    border-radius: 12px;
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(236, 64, 122, 0.3);
+    width: 100%;
+}
+ 
+#button-insert:hover {
+    background: linear-gradient(135deg, #ae1653 0%, #8B0A3A 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(236, 64, 122, 0.4);
+}
+ 
+#button-insert:active {
+    transform: translateY(-1px);
+}
+ 
+#container-checkbox {
+    background: white;
+    border-radius: 16px;
+    border: 2px solid #FFB6D9;
+    padding: 25px 20px;
+    box-shadow: 0 10px 30px rgba(136, 14, 79, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    min-height: 200px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+ 
+#container-checkbox p {
+    font-size: 18px;
+    font-weight: 700;
+    color: #880E4F;
+    margin: 0;
+}
+ 
 #container-checkbox hr {
     border: none;
-    border-top: 1px solid rgba(174, 22, 83, 0.2); 
+    border-top: 2px solid #FFB6D9;
     width: 100%;
     margin: 0;
 }
-
-#container-checkbox p {
-    font-size: 22px;
-    font-weight: bold;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    letter-spacing: 0.5px;
-}
-
-/* --- STILE DELLE CHECKBOX E DELLE LABEL --- */
+ 
 #div-checkbox {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
-    width: 100%;
-    gap: 10px; 
+    gap: 12px;
 }
-
+ 
 .new-label {
     display: flex;
     align-items: center;
     width: 100%;
-    font-size: 20px; /* Ridotto leggermente per eleganza */
-    padding: 10px 15px; 
+    font-size: 16px;
+    padding: 12px;
     box-sizing: border-box;
-    line-height: 1.2;
-    border-radius: 10px;
-    transition: background-color 0.2s ease;
+    line-height: 1.4;
+    gap: 12px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    background-color: #FFF5F7;
 }
-
+ 
 .new-label:hover {
-    background-color: #FFF5F7; 
+    background-color: #FFE4EC;
 }
-
+ 
 .new-checkbox {
     appearance: none;
     -webkit-appearance: none;
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    min-height: 22px;
     cursor: pointer;
     flex-shrink: 0;
-    margin: 0 15px 0 0;
     border: 2px solid #ae1653;
-    border-radius: 6px; 
+    border-radius: 4px;
     background-color: white;
     transition: all 0.2s ease;
 }
-
+ 
+.new-checkbox:hover {
+    border-color: #EC407A;
+    box-shadow: 0 0 0 3px rgba(236, 64, 122, 0.1);
+}
+ 
 .new-checkbox:checked {
     background-color: #EC407A;
     border-color: #EC407A;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 8l4 4 8-8' stroke='white' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 8l4 4 8-8' stroke='white' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: center;
-    transform: scale(1.1); 
 }
-
-/* Nasconde la scrollbar esteticamente ma mantiene la funzionalità */
-::-webkit-scrollbar {
-    display: none;
+ 
+.delete-section {
+    text-align: center;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(136, 14, 79, 0.1);
+    margin-bottom: 30px;
+}
+ 
+.delete-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+ 
+.delete-btn:hover {
+    background-color: #d32f2f;
+}
+ 
+.delete-hint {
+    font-size: 12px;
+    color: #999;
+    margin-top: 10px;
+}
+ 
+#container-checkbox::-webkit-scrollbar {
+    width: 6px;
+}
+ 
+#container-checkbox::-webkit-scrollbar-track {
+    background: #FFF5F7;
+    border-radius: 10px;
+}
+ 
+#container-checkbox::-webkit-scrollbar-thumb {
+    background: #EC407A;
+    border-radius: 10px;
+}
+ 
+#container-checkbox::-webkit-scrollbar-thumb:hover {
+    background: #ae1653;
+}
+ 
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+ 
+    h1 {
+        font-size: 26px;
+    }
+ 
+    h2 {
+        font-size: 20px;
+    }
+ 
+    main {
+        margin-top: 20px;
+        gap: 15px;
+    }
+ 
+    .input-section,
+    #container-checkbox {
+        padding: 20px 16px;
+        border-radius: 14px;
+    }
+ 
+    #input-label {
+        font-size: 15px;
+    }
+ 
+    #input-checkbox {
+        padding: 12px 14px;
+        font-size: 15px;
+    }
+ 
+    #button-insert {
+        padding: 12px 24px;
+        font-size: 14px;
+    }
+ 
+    .new-label {
+        font-size: 15px;
+        padding: 10px;
+        gap: 10px;
+    }
+ 
+    .header {
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 12px 16px;
+    }
+ 
+    #nome-utente {
+        font-size: 13px;
+    }
+ 
+    .logout-btn {
+        padding: 7px 14px;
+        font-size: 12px;
+    }
+}
+ 
+@media (max-width: 480px) {
+    body {
+        padding: 12px;
+    }
+ 
+    h1 {
+        font-size: 22px;
+        margin-bottom: 5px;
+    }
+ 
+    h2 {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+ 
+    main {
+        margin-top: 15px;
+        gap: 12px;
+    }
+ 
+    .input-section,
+    #container-checkbox {
+        padding: 16px 12px;
+        border-radius: 12px;
+    }
+ 
+    #input-label {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+ 
+    #input-checkbox {
+        padding: 11px 12px;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+ 
+    #button-insert {
+        padding: 11px 20px;
+        font-size: 13px;
+    }
+ 
+    #container-checkbox {
+        min-height: 180px;
+        max-height: 400px;
+    }
+ 
+    #container-checkbox p {
+        font-size: 16px;
+    }
+ 
+    .new-label {
+        font-size: 14px;
+        padding: 10px 8px;
+        gap: 10px;
+    }
+ 
+    .new-checkbox {
+        width: 20px;
+        height: 20px;
+        min-width: 20px;
+        min-height: 20px;
+    }
+ 
+    .header {
+        padding: 10px 12px;
+        gap: 8px;
+    }
+ 
+    #nome-utente {
+        font-size: 12px;
+    }
+ 
+    .logout-btn {
+        padding: 6px 12px;
+        font-size: 11px;
+    }
+ 
+    .delete-section {
+        padding: 16px 12px;
+    }
+ 
+    .delete-btn {
+        padding: 11px 20px;
+        font-size: 13px;
+    }
 }

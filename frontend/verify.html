@@ -2,104 +2,257 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Verifica Email</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verifica Email - My Happy Capybara</title>
     <style>
-        body {
-            background-color: #FFF5F7;
-            font-family: Georgia, 'Times New Roman', Times, serif;
-            text-align: center;
-            color: #880E4F;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        * {
             margin: 0;
-        }
-        .container {
-            border: 1px solid rgba(174, 22, 83, 0.2);
-            width: 400px;
-            max-width: 90%;
-            padding: 40px 20px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(136, 14, 79, 0.1);
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            background-color: #fff;
-        }
-        h1 { margin-top: 0; font-size: 24px; }
-        input {
-            font-family: inherit;
-            font-size: 16px;
-            padding: 12px 15px;
-            color: #880E4F;
-            border: 1px solid rgba(174, 22, 83, 0.4);
-            border-radius: 12px;
-            width: 85%;
-            margin: 0 auto;
+            padding: 0;
             box-sizing: border-box;
-            background-color: #FFF5F7;
         }
-        button {
-            background-color: #EC407A;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 12px;
-            color: white;
+ 
+        body {
+            background: linear-gradient(135deg, #FFF5F7 0%, #FFE4EC 100%);
+            font-family: 'Georgia', 'Times New Roman', serif;
+            color: #880E4F;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+ 
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(136, 14, 79, 0.15);
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            animation: slideUp 0.6s ease-out;
+        }
+ 
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+ 
+        h1 {
+            font-size: 32px;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+        }
+ 
+        .subtitle {
+            color: #ae1653;
+            font-size: 14px;
+            margin-bottom: 30px;
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+ 
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+ 
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #880E4F;
+        }
+ 
+        input[type="email"],
+        input[type="text"] {
+            width: 100%;
+            padding: 14px 16px;
             font-size: 16px;
-            font-weight: bold;
-            width: 85%;
-            margin: 10px auto;
-            cursor: pointer;
+            border: 2px solid #FFB6D9;
+            border-radius: 12px;
+            background-color: #FFF5F7;
+            color: #880E4F;
+            font-family: 'Georgia', serif;
+            transition: all 0.3s ease;
         }
-        button:hover { background-color: #ae1653; }
-        #messaggio { font-size: 16px; font-weight: bold; margin-top: 10px; min-height: 20px;}
+ 
+        input[type="email"]:focus,
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #EC407A;
+            background-color: white;
+            box-shadow: 0 0 0 4px rgba(236, 64, 122, 0.1);
+        }
+ 
+        input[readonly] {
+            background-color: #f5f5f5;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+ 
+        button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #EC407A 0%, #ae1653 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(236, 64, 122, 0.3);
+            margin-top: 10px;
+        }
+ 
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(236, 64, 122, 0.4);
+        }
+ 
+        button:active {
+            transform: translateY(-1px);
+        }
+ 
+        #messaggio {
+            margin-top: 20px;
+            padding: 14px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            display: none;
+        }
+ 
+        #messaggio.show {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+ 
+        #messaggio.success {
+            background-color: #E8F5E9;
+            color: #2E7D32;
+            border-left: 4px solid #4CAF50;
+        }
+ 
+        #messaggio.error {
+            background-color: #FFEBEE;
+            color: #C62828;
+            border-left: 4px solid #F44336;
+        }
+ 
+        .info-box {
+            background-color: #FFF5F7;
+            border-left: 4px solid #EC407A;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            text-align: left;
+        }
+ 
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+ 
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+ 
+            h1 {
+                font-size: 26px;
+            }
+ 
+            input {
+                padding: 12px 14px;
+                font-size: 16px;
+            }
+ 
+            button {
+                padding: 14px;
+                font-size: 15px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Verifica la tua Email</h1>
-        <p>Abbiamo mandato un codice alla tua email. Inseriscilo qui:</p>
-        <input type="email" id="email" placeholder="La tua email" readonly>
-        <input type="text" id="codice" placeholder="Codice di verifica (6 cifre)">
-        
-        <button onclick="verifica()">Verifica</button>
-
-        <p id="messaggio"></p>
+        <h1>Verifica Email</h1>
+        <p class="subtitle">Abbiamo inviato un codice di 6 cifre alla tua email. Inseriscilo qui per continuare.</p>
+ 
+        <div class="info-box">
+            Controlla la cartella spam se non vedi l'email entro pochi minuti.
+        </div>
+ 
+        <form onsubmit="verifica(event)">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="La tua email" readonly>
+            </div>
+ 
+            <div class="form-group">
+                <label for="codice">Codice di Verifica</label>
+                <input type="text" id="codice" placeholder="000000" maxlength="6" required>
+            </div>
+ 
+            <button type="submit">Verifica</button>
+        </form>
+ 
+        <div id="messaggio"></div>
     </div>
-
+ 
     <script>
         const email = new URLSearchParams(window.location.search).get("email");
-        document.getElementById("email").value = email;
-
-        async function verifica(){
-            const codice = document.getElementById("codice").value;
-
-            if(!codice || codice.length !== 6) {
-                document.getElementById("messaggio").textContent = "Inserisci un codice valido (6 cifre)";
+        if(email) {
+            document.getElementById("email").value = decodeURIComponent(email);
+        }
+ 
+        async function verifica(event){
+            event.preventDefault();
+            
+            const codice = document.getElementById("codice").value.trim();
+            const email = document.getElementById("email").value;
+            const messaggioEl = document.getElementById("messaggio");
+ 
+            if(!codice || codice.length !== 6 || isNaN(codice)) {
+                messaggioEl.textContent = "Inserisci un codice valido (6 cifre)";
+                messaggioEl.className = "show error";
                 return;
             }
-
+ 
             try {
                 const res = await fetch("https://my-happy-capybara.onrender.com/auth/verify", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ email, codice })
                 });
-
+ 
                 const data = await res.json();
-
+                messaggioEl.textContent = res.ok ? "Email verificata" : data.messaggio;
+                messaggioEl.className = "show " + (res.ok ? "success" : "error");
+ 
                 if(res.ok) {
-                    document.getElementById("messaggio").textContent = "✅ Email verificata! Reindirizzamento...";
                     setTimeout(() => {
                         window.location.href = "login.html";
-                    }, 1500);
-                } else {
-                    document.getElementById("messaggio").textContent = data.messaggio;
+                    }, 2000);
                 }
             } catch (error) {
-                document.getElementById("messaggio").textContent = "Errore di connessione.";
+                messaggioEl.textContent = "Errore di connessione al server";
+                messaggioEl.className = "show error";
             }
         }
     </script>
