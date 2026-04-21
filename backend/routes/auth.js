@@ -53,7 +53,7 @@ router.post("/register", async (req, res) => {
             to: email,
             subject: "Codice di Verifica - My Happy Capybara",
             html: `
-                <h2>Benvenuto ${nome}!</h2>
+                <h2>Benvenuto/a ${nome}!</h2>
                 <p>Il tuo codice di verifica è:</p>
                 <h1 style="color: #EC407A; font-size: 32px;">${codiceVerifica}</h1>
                 <p>Inseriscilo nel modulo per verificare la tua email.</p>
@@ -113,7 +113,7 @@ router.post("/login", async (req, res) => {
             return res.status(400).json({ messaggio: "Email o password errati" });
         }
 
-        const secret = process.env.JWT_SECRET || "MiaChiaveSegretaSuperDifficile123";
+        const secret = process.env.JWT_SECRET || "7k9mP2qL5nW8xR3vB6jH4dF1gT9sY0uC_aE8mN5pQ2xW7jL3sD6vH9tK1rY4bF0";
 
         const token = jwt.sign(
             { id: utente._id, nome: utente.nome },
