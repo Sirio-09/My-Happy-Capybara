@@ -14,11 +14,13 @@ router.get("/", authMiddleware, async (req, res) => {
  
 router.post("/", authMiddleware, async (req, res) => {
     try {
-        const { testo } = req.body;
+        // ECCO LA MODIFICA: estraiamo anche la scadenza dal body della richiesta
+        const { testo, scadenza } = req.body;
  
         const nuovaTask = new Task({
             utenteId: req.utente.id,
-            testo
+            testo,
+            scadenza // ECCO LA MODIFICA: la inseriamo nella nuova task da salvare
         });
  
         await nuovaTask.save();
