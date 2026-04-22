@@ -7,9 +7,9 @@ if(!token) {
 document.addEventListener("DOMContentLoaded", () => {
     const nomeSalvato = localStorage.getItem("nome");
     document.getElementById("nome-utente").textContent = nomeSalvato ? "Hello, " + nomeSalvato : "Hello, User";
-    caricaTasks();
     
-    // Controlla i ritardi ogni minuto
+    setupCustomSelects();
+    caricaTasks();
     setInterval(aggiornaRitardi, 60000);
 });
 
@@ -17,6 +17,52 @@ function logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("nome");
     window.location.href = "login.html";
+}
+
+// Funzione per creare i numeri nei menu a tendina personalizzati
+function setupCustomSelects() {
+    const optionsOre = document.getElementById('options-ore');
+    const optionsMinuti = document.getElementById('options-minuti');
+
+    let htmlOre = '<li data-value="">--</li>';
+    for (let i = 0; i < 24; i++) {
+        let val = i.toString().padStart(2, '0');
+        htmlOre += `<li data-value="${val}">${val}</li>`;
+    }
+    optionsOre.innerHTML = htmlOre;
+
+    let htmlMinuti = '<li data-value="">--</li>';
+    for (let i = 0; i <= 55; i += 5) {
+        let val = i.toString().padStart(2, '0');
+        htmlMinuti += `<li data-value="${val}">${val}</li>`;
+    }
+    optionsMinuti.innerHTML = htmlMinuti;
+
+    document.querySelectorAll('.custom-select').forEach(customSelect => {
+        const trigger = customSelect.querySelector('.select-trigger');
+        const options = customSelect.querySelector('.select-options');
+
+        trigger.addEventListener('click', (e) => {
+            document.querySelectorAll('.custom-select').forEach(el => {
+                if (el !== customSelect) el.classList.remove('open');
+            });
+            customSelect.classList.toggle('open');
+            e.stopPropagation();
+        });
+
+        options.addEventListener('click', (e) => {
+            if (e.target.tagName === 'LI') {
+                const value = e.target.getAttribute('data-value');
+                trigger.textContent = e.target.textContent;
+                customSelect.dataset.value = value;
+                customSelect.classList.remove('open');
+            }
+        });
+    });
+
+    document.addEventListener('click', () => {
+        document.querySelectorAll('.custom-select').forEach(el => el.classList.remove('open'));
+    });
 }
 
 function aggiornaCapybara(percentuale) {
@@ -28,20 +74,12 @@ function aggiornaCapybara(percentuale) {
         mouth.innerHTML = `<path d="M88 92 Q100 86 112 92" stroke="#6B3A1A" stroke-width="2.5" fill="none" stroke-linecap="round"/>`;
         guanciaSx.setAttribute("opacity", "0");
         guanciaDx.setAttribute("opacity", "0");
-    } else if(percentuale <= 25) {
-        mouth.innerHTML = `<path d="M88 90 Q100 90 112 90" stroke="#6B3A1A" stroke-width="2.5" fill="none" stroke-linecap="round"/>`;
-        guanciaSx.setAttribute("opacity", "0");
-        guanciaDx.setAttribute("opacity", "0");
     } else if(percentuale <= 50) {
         mouth.innerHTML = `<path d="M88 89 Q100 94 112 89" stroke="#6B3A1A" stroke-width="2.5" fill="none" stroke-linecap="round"/>`;
         guanciaSx.setAttribute("opacity", "0.2");
         guanciaDx.setAttribute("opacity", "0.2");
-    } else if(percentuale <= 75) {
-        mouth.innerHTML = `<path d="M86 88 Q100 96 114 88" stroke="#6B3A1A" stroke-width="2.5" fill="none" stroke-linecap="round"/>`;
-        guanciaSx.setAttribute("opacity", "0.35");
-        guanciaDx.setAttribute("opacity", "0.35");
     } else if(percentuale < 100) {
-        mouth.innerHTML = `<path d="M84 87 Q100 98 116 87" stroke="#6B3A1A" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M84 87 Q100 105 116 87" stroke="#E8B98A" stroke-width="1" fill="#E8B98A" opacity="0.5"/>`;
+        mouth.innerHTML = `<path d="M84 87 Q100 98 116 87" stroke="#6B3A1A" stroke-width="2.5" fill="none" stroke-linecap="round"/>`;
         guanciaSx.setAttribute("opacity", "0.5");
         guanciaDx.setAttribute("opacity", "0.5");
     } else {
@@ -95,12 +133,11 @@ async function caricaTasks(){
             headers: { "Authorization": `Bearer ${token}` }
         });
         const tasks = await res.json();
+        document.getElementById("div-checkbox").innerHTML = ""; // Pulisci prima di caricare
         tasks.forEach(task => creaTaskDOM(task));
         aggiornaProgresso();
         aggiornaRitardi();
-    } catch(err) {
-        console.error("Errore nel caricamento:", err);
-    }
+    } catch(err) { console.error("Errore nel caricamento:", err); }
 }
 
 function creaTaskDOM(task){
@@ -122,7 +159,6 @@ function creaTaskDOM(task){
     taskTesto.textContent = task.testo;
     taskInfo.appendChild(taskTesto);
 
-    // Se la task ha l'orario (ora arriva correttamente dal DB!), creiamo l'elemento visuale
     if(task.scadenza) {
         const taskScadenza = document.createElement("span");
         taskScadenza.className = "task-scadenza";
@@ -143,9 +179,7 @@ function creaTaskDOM(task){
             });
             aggiornaProgresso();
             aggiornaRitardi();
-        } catch(err) {
-            console.error("Errore aggiornamento:", err);
-        }
+        } catch(err) { console.error("Errore aggiornamento:", err); }
     };
 
     label.appendChild(checkbox);
@@ -155,15 +189,14 @@ function creaTaskDOM(task){
 
 async function insertCheckBox() {
     const inputField = document.getElementById("input-checkbox");
-    const ore = document.getElementById("input-ore").value;
-    const minuti = document.getElementById("input-minuti").value;
+    const ore = document.getElementById("custom-ore").dataset.value;
+    const minuti = document.getElementById("custom-minuti").dataset.value;
     const taskText = inputField.value.trim();
 
     if (taskText === "") return;
 
-    // Prepariamo i dati da inviare. Se l'orario è stato inserito, lo aggiungiamo, altrimenti no.
     const bodyData = { testo: taskText };
-    if (ore !== "" && minuti !== "") {
+    if (ore && minuti) {
         bodyData.scadenza = `${ore}:${minuti}`;
     }
 
@@ -178,17 +211,18 @@ async function insertCheckBox() {
         });
         
         const task = await res.json();
-        
         creaTaskDOM(task);
+        
+        // Reset campi
         inputField.value = "";
-        document.getElementById("input-ore").value = "";
-        document.getElementById("input-minuti").value = "";
+        document.getElementById("custom-ore").dataset.value = "";
+        document.querySelector("#custom-ore .select-trigger").textContent = "--";
+        document.getElementById("custom-minuti").dataset.value = "";
+        document.querySelector("#custom-minuti .select-trigger").textContent = "--";
         
         aggiornaProgresso();
         aggiornaRitardi();
-    } catch(err) {
-        console.error("Errore creazione:", err);
-    }
+    } catch(err) { console.error("Errore creazione:", err); }
 }
 
 async function removeCheckbox() {
@@ -203,9 +237,7 @@ async function removeCheckbox() {
             });
             label.remove();
             aggiornaProgresso();
-        } catch(err) {
-            console.error("Errore eliminazione:", err);
-        }
+        } catch(err) { console.error("Errore eliminazione:", err); }
     }
 }
 

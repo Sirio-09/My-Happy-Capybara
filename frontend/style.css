@@ -513,3 +513,64 @@ h2 {
         width: 160px;
     }
 }
+
+/* --- STILI BASE (Esempio) --- */
+body { background-color: #faf8f5; color: #6B3A1A; font-family: sans-serif; text-align: center; }
+.input-row { display: flex; justify-content: center; align-items: center; gap: 10px; margin: 20px; }
+.task-info { display: flex; flex-direction: column; text-align: left; margin-left: 10px; }
+.task-scadenza { font-size: 0.85em; color: #8B5A3A; }
+.task-scadenza.scaduta { color: #d32f2f; font-weight: bold; }
+
+/* --- STILI PER I FINTI SELECT --- */
+.time-wrapper { display: flex; align-items: center; gap: 5px; background: #fff; padding: 5px 10px; border-radius: 8px; border: 1px solid #ddd; }
+
+.custom-select {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+}
+
+.select-trigger {
+    background-color: #fdf5e6;
+    color: #6B3A1A;
+    border: 2px solid #C4956A;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+    text-align: center;
+    user-select: none;
+    font-weight: bold;
+}
+
+.select-trigger:hover { border-color: #6B3A1A; }
+
+.select-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #fdf5e6;
+    border: 2px solid #6B3A1A;
+    border-radius: 5px;
+    list-style: none;
+    padding: 0;
+    margin: 2px 0 0 0;
+    max-height: 150px;
+    overflow-y: auto;
+    z-index: 99;
+    display: none;
+}
+
+.custom-select.open .select-options { display: block; }
+
+.select-options li { padding: 8px; cursor: pointer; color: #6B3A1A; transition: 0.2s; }
+
+/* QUI TOLIAMO L'AZZURRO E METTIAMO IL MARRONE/BEIGE */
+.select-options li:hover {
+    background-color: #E8B98A; 
+    color: #3A2010;
+}
+
+/* Scrollbar personalizzata */
+.select-options::-webkit-scrollbar { width: 6px; }
+.select-options::-webkit-scrollbar-thumb { background-color: #C4956A; border-radius: 3px; }
