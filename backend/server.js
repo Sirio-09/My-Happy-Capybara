@@ -11,7 +11,9 @@ const cors = require("cors");
 const authRoutes = require("./routes/auth");
 const utentiRoutes = require("./routes/utenti");
 const tasksRoutes = require("./routes/tasks");
-const Task = require('./models/Task'); // Importa il modello Task per il reset
+const Task = require('./models/Task');
+
+const LastReset = require('./models/LastReset');
 
 const app = express();
 
@@ -55,6 +57,34 @@ app.get('/reset-giornaliero-segreto-capibara-99', async (req, res) => {
         res.status(500).send("Errore nel reset.");
     }
 });
+
+mongoose.connect(mongoURI)
+    .then(async () => {
+        console.log("✅ MongoDB connesso!");
+        
+        // --- FUNZIONE DI AUTO-RESET ALL'AVVIO ---
+        const oggi = new Date().toISOString().split('T')[0]; // Prende la data di oggi (es. 2024-05-20)
+        
+        try {
+            const checkReset = await LastReset.findOne({ data: oggi });
+            
+            if (!checkReset) {
+                // Se non troviamo la data di oggi nel DB, significa che non abbiamo ancora pulito
+                await Task.deleteMany({}); // Pulisce tutte le task
+                
+                // Registra che oggi la pulizia è stata fatta
+                await LastReset.deleteMany({}); // Cancella i log vecchi
+                await new LastReset({ data: oggi }).save();
+                
+                console.log("🧹 Pulizia mattutina eseguita automaticamente all'avvio!");
+            } else {
+                console.log("✨ Pulizia già effettuata per oggi, non serve rifarla.");
+            }
+        } catch (err) {
+            console.error("Errore nel controllo reset all'avvio:", err);
+        }
+    })
+    .catch(err => console.error("❌ Errore MongoDB:", err));
 
 // --- AVVIO DEL SERVER --- (Sempre alla fine!)
 const PORT = process.env.PORT || 3000;
